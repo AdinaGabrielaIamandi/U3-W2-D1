@@ -42,9 +42,9 @@ class BookList extends Component {
               })}
           </Row>
         </Col>
-        {this.props.books.map((b) => console.log(b.asin))}
+
         <Col xs={6} md={4}>
-          <CommentArea />
+          {this.state.selected && <CommentArea asin={this.props.books.asin} />}
         </Col>
       </Row>
     );

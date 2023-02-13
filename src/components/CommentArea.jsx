@@ -32,7 +32,7 @@ class CommentArea extends Component {
       this.setState({ isLoading: false, isError: true });
     }
   };
-
+  componentDidUpdate;
   render() {
     return (
       <div className="text-center">
