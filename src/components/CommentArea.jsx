@@ -32,7 +32,31 @@ class CommentArea extends Component {
       this.setState({ isLoading: false, isError: true });
     }
   };
-  componentDidUpdate;
+
+  async componentDidUpdate(prevProps) {
+    if (prevProps.asin !== this.props.asin) {
+      try {
+        let response = await fetch("https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin, {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhM2EwNjVmZTk4NDAwMTM0ZDNkNjciLCJpYXQiOjE2NzYyOTQ2NjMsImV4cCI6MTY3NzUwNDI2M30.nght25qzty4zflRvgLp-TZUZZ-wK4dSqnV4PwvdUqhM"
+          }
+        });
+        console.log(response);
+        if (response.ok) {
+          let comments = await response.json();
+          this.setState({ comments: comments, isLoading: false, isError: false });
+        } else {
+          console.log("error");
+          this.setState({ isLoading: false, isError: true });
+        }
+      } catch (error) {
+        console.log(error);
+        this.setState({ isLoading: false, isError: true });
+      }
+    }
+  }
+
   render() {
     return (
       <div className="text-center">

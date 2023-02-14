@@ -6,11 +6,11 @@ import CommentArea from "./CommentArea";
 class BookList extends Component {
   state = {
     searchQuery: "",
-    selected: false
+    selectedBook: ""
   };
 
-  setSelected = () => {
-    this.setState({ selected: !this.state.selected });
+  setSelectedBook = (asin) => {
+    this.setState({ selectedBook: asin });
   };
 
   render() {
@@ -36,15 +36,14 @@ class BookList extends Component {
               .map((b) => {
                 return (
                   <Col xs={12} md={6} lg={4} key={b.asin}>
-                    <SingleBook book={b} selected={this.state.selected} setSelected={this.setSelected} />
+                    <SingleBook book={b} selected={this.state.selected} setSelectedBook={this.setSelectedBook} />
                   </Col>
                 );
               })}
           </Row>
         </Col>
-
         <Col xs={6} md={4}>
-          {this.state.selected && <CommentArea asin={this.props.books.asin} />}
+          <CommentArea asin={this.setSelectedBook} />
         </Col>
       </Row>
     );
