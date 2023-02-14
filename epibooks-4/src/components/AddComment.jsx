@@ -1,57 +1,55 @@
-import { Component } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Component } from "react";
+import { Button, Form } from "react-bootstrap";
 
 class AddComment extends Component {
   state = {
     comment: {
-      comment: '',
+      comment: "",
       rate: 1,
-      elementId: this.props.asin,
-    },
-  }
+      elementId: this.props.asin
+    }
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.asin !== this.props.asin) {
       this.setState({
         comment: {
           ...this.state.comment,
-          elementId: this.props.asin,
-        },
-      })
+          elementId: this.props.asin
+        }
+      });
     }
   }
 
   sendComment = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments',
-        {
-          method: 'POST',
-          body: JSON.stringify(this.state.comment),
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: 'Bearer your-auth-token-goes-here',
-          },
+      let response = await fetch("https://striveschool-api.herokuapp.com/api/comments", {
+        method: "POST",
+        body: JSON.stringify(this.state.comment),
+        headers: {
+          "Content-type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhM2EwNjVmZTk4NDAwMTM0ZDNkNjciLCJpYXQiOjE2NzYzODEyNDMsImV4cCI6MTY3NzU5MDg0M30.736OxxUh3dUkKrm-41q_ig4GLmwWZD37CSylhSM0HNM"
         }
-      )
+      });
       if (response.ok) {
-        alert('Comment was sent!')
+        alert("Comment was sent!");
         this.setState({
           comment: {
-            comment: '',
+            comment: "",
             rate: 1,
-            elementId: this.props.asin,
-          },
-        })
+            elementId: this.props.asin
+          }
+        });
       } else {
-        console.log('error')
-        alert('something went wrong')
+        console.log("error");
+        alert("something went wrong");
       }
     } catch (error) {
-      console.log('error')
+      console.log("error");
     }
-  }
+  };
 
   render() {
     return (
@@ -67,8 +65,8 @@ class AddComment extends Component {
                 this.setState({
                   comment: {
                     ...this.state.comment,
-                    comment: e.target.value,
-                  },
+                    comment: e.target.value
+                  }
                 })
               }
             />
@@ -82,8 +80,8 @@ class AddComment extends Component {
                 this.setState({
                   comment: {
                     ...this.state.comment,
-                    rate: e.target.value,
-                  },
+                    rate: e.target.value
+                  }
                 })
               }
             >
@@ -99,8 +97,8 @@ class AddComment extends Component {
           </Button>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-export default AddComment
+export default AddComment;
