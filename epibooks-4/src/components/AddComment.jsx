@@ -14,7 +14,7 @@ const AddComment = (props) => {
   const [comment, setComment] = useState({
     comment: "",
     rate: 1,
-    elementId: props
+    elementId: ""
   });
 
   /*   componentDidUpdate(prevProps) {
@@ -30,7 +30,7 @@ const AddComment = (props) => {
 
   useEffect(() => {
     sendComment();
-  }, [props]);
+  }, []);
 
   const sendComment = async (e) => {
     e.preventDefault();
